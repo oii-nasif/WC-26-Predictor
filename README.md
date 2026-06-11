@@ -2,7 +2,7 @@
 
 An interactive prediction bracket for the 2026 FIFA World Cup (Canada · Mexico · United States, June 11 – July 19, 2026). Predict all 104 matches, watch the knockout draw build itself, then grade your bracket against the real tournament.
 
-**Open `index.dc.html` to start. See `user-guide.dc.html` for a visual walkthrough.**
+**Open `index.html` to start. See `user-guide.html` for a visual walkthrough.**
 
 ---
 
@@ -61,8 +61,8 @@ Everything (both datasets) saves to your browser automatically and survives relo
 ## Files
 | File | Purpose |
 |---|---|
-| `index.dc.html` | The predictor app |
-| `user-guide.dc.html` | Illustrated user guide |
+| `index.html` | The predictor app |
+| `user-guide.html` | Illustrated user guide |
 | `README.md` | This file |
 
 ## Data & design notes

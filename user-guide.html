@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Archivo:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #F1EDE2; }
+    * { box-sizing: border-box; }
+  </style>
+</helmet>
+<div style="min-height:100vh;background:#F1EDE2;color:#15181D;font-family:'Archivo',system-ui,sans-serif;">
+  <div style="display:flex;height:6px;">
+    <div style="flex:1;background:#C8402F;"></div>
+    <div style="flex:1;background:#1A7A4A;"></div>
+    <div style="flex:1;background:#1F4FA8;"></div>
+  </div>
+  <header style="background:#F7F4EA;border-bottom:2px solid #15181D;">
+    <div style="max-width:1060px;margin:0 auto;padding:26px 32px 26px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2.4px;color:#7A7158;">FIFA WORLD CUP 26 · PREDICTION BRACKET</div>
+        <div style="display:flex;align-items:baseline;gap:12px;margin-top:7px;">
+          <span style="font-family:'Anton',sans-serif;font-size:46px;line-height:1;letter-spacing:1px;">USER GUIDE</span>
+          <span style="font-family:'Anton',sans-serif;font-size:46px;line-height:1;background:#C8402F;color:#F7F4EA;padding:3px 10px 0;">26</span>
+        </div>
+      </div>
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:#15181D;color:#F5F2EA;border:2px solid #15181D;padding:11px 18px;border-radius:10px;font-weight:800;font-size:12px;letter-spacing:1.2px;text-decoration:none;" style-hover="background:#2C323C;border-color:#2C323C;">← BACK TO THE PREDICTOR</a>
+    </div>
+  </header>
+
+  <main data-screen-label="User guide" style="max-width:1060px;margin:0 auto;padding:28px 32px 72px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+
+      <section style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:22px 26px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:'Anton',sans-serif;font-size:30px;color:#C8402F;">01</span>
+          <span style="font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.5px;">SCORE THE GROUPS</span>
+        </div>
+        <div style="margin-top:10px;font-size:13.5px;font-weight:500;line-height:1.65;color:#3D3A30;">
+          Every score box is a button. <strong>Tap once for 0</strong>, and each tap adds a goal — so a 2–1 needs three taps on one side, two on the other. Tap past 9 to clear a box. Hover a scored match and a small <strong>×</strong> appears at the row's right edge to reset just that match.
+        </div>
+        <div style="margin-top:12px;font-size:12px;font-weight:600;color:#7A7158;border-top:1px solid #EAE3D0;padding-top:10px;">
+          Standings update live with official tiebreakers. When all six matches are set, the group locks ✓ and the top two highlight green.
+        </div>
+      </section>
+
+      <section style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:22px 26px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:'Anton',sans-serif;font-size:30px;color:#1A7A4A;">02</span>
+          <span style="font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.5px;">THE BEST THIRDS</span>
+        </div>
+        <div style="margin-top:10px;font-size:13.5px;font-weight:500;line-height:1.65;color:#3D3A30;">
+          New for 48 teams: the <strong>eight best third-placed sides</strong> also advance. Once all 12 groups are complete, the strip below the groups ranks all twelve 3rd-place teams — green chips are in, faded chips are out. A qualifying third also gets an amber row in its group table.
+        </div>
+        <div style="margin-top:12px;font-size:12px;font-weight:600;color:#7A7158;border-top:1px solid #EAE3D0;padding-top:10px;">
+          Ranking criteria: points → goal difference → goals scored.
+        </div>
+      </section>
+
+      <section style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:22px 26px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:'Anton',sans-serif;font-size:30px;color:#1F4FA8;">03</span>
+          <span style="font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.5px;">PICK THE BRACKET</span>
+        </div>
+        <div style="margin-top:10px;font-size:13.5px;font-weight:500;line-height:1.65;color:#3D3A30;">
+          The knockout tab shows the <strong>official match map</strong> — Round of 32 through the final at MetLife. Slots fill themselves as groups complete. <strong>Tap a team to advance it</strong>; tap again to unpick. Change a group result and any picks it breaks clear automatically.
+        </div>
+        <div style="margin-top:12px;font-size:12px;font-weight:600;color:#7A7158;border-top:1px solid #EAE3D0;padding-top:10px;">
+          The whole bracket scales to fit your window — no sideways scrolling.
+        </div>
+      </section>
+
+      <section style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:22px 26px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:'Anton',sans-serif;font-size:30px;color:#C8402F;">04</span>
+          <span style="font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.5px;">AUTO-FILL</span>
+        </div>
+        <div style="margin-top:10px;font-size:13.5px;font-weight:500;line-height:1.65;color:#3D3A30;">
+          Short on time? <strong>⚡ Auto-fill remaining</strong> simulates everything you haven't predicted — goals follow a ranking-weighted model, favorites advance 82% of the time, upsets happen 18%. Your own entries are never overwritten.
+        </div>
+        <div style="margin-top:12px;font-size:12px;font-weight:600;color:#7A7158;border-top:1px solid #EAE3D0;padding-top:10px;">
+          Run it after picking your favorites by hand — it only fills the blanks.
+        </div>
+      </section>
+
+      <section style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:22px 26px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:'Anton',sans-serif;font-size:30px;color:#C9A227;">05</span>
+          <span style="font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.5px;">ENTER REAL RESULTS</span>
+        </div>
+        <div style="margin-top:10px;font-size:13.5px;font-weight:500;line-height:1.65;color:#3D3A30;">
+          The <strong>EDITING toggle</strong> (right of the tabs) switches to <strong>Actual results</strong> — a separate dataset for what really happens, shown with <strong>gold borders</strong>. Enter real scores as matches finish; your prediction stays untouched in its own mode.
+        </div>
+        <div style="margin-top:12px;font-size:12px;font-weight:600;color:#7A7158;border-top:1px solid #EAE3D0;padding-top:10px;">
+          CLEAR only wipes the mode you're currently editing.
+        </div>
+      </section>
+
+      <section style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:22px 26px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:'Anton',sans-serif;font-size:30px;color:#1A7A4A;">06</span>
+          <span style="font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.5px;">THE SCORECARD</span>
+        </div>
+        <div style="margin-top:10px;font-size:13.5px;font-weight:500;line-height:1.65;color:#3D3A30;">
+          The third tab grades your bracket against reality: <strong>3 pts</strong> for an exact group score, <strong>1 pt</strong> for the right outcome, and escalating points for every team you correctly put through — <strong>+1</strong> R32 · <strong>+2</strong> R16 · <strong>+4</strong> QF · <strong>+8</strong> SF · <strong>+16</strong> Final · <strong>+32</strong> Champion.
+        </div>
+        <div style="margin-top:12px;font-size:12px;font-weight:600;color:#7A7158;border-top:1px solid #EAE3D0;padding-top:10px;">
+          Knockout credit is path-independent — if your team gets there, you score.
+        </div>
+      </section>
+
+      <section style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:22px 26px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:'Anton',sans-serif;font-size:30px;color:#1F4FA8;">07</span>
+          <span style="font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.5px;">PATH TO GLORY</span>
+        </div>
+        <div style="margin-top:10px;font-size:13.5px;font-weight:500;line-height:1.65;color:#3D3A30;">
+          <strong>Click any team's row</strong> in a standings table to see their full predicted story — three group games with W/D/L badges, where they finish, and every knockout round until they fall… or lift the trophy.
+        </div>
+        <div style="margin-top:12px;font-size:12px;font-weight:600;color:#7A7158;border-top:1px solid #EAE3D0;padding-top:10px;">
+          Works in both modes — in Actual results it shows their real road so far.
+        </div>
+      </section>
+
+      <section style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:22px 26px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:'Anton',sans-serif;font-size:30px;color:#C9A227;">08</span>
+          <span style="font-family:'Anton',sans-serif;font-size:19px;letter-spacing:0.5px;">SHARE IT</span>
+        </div>
+        <div style="margin-top:10px;font-size:13.5px;font-weight:500;line-height:1.65;color:#3D3A30;">
+          Finish every prediction and two buttons appear: <strong>SHARE</strong> sends a text summary (champion, final, semifinalists — with flag emoji) via your share sheet or clipboard; <strong>CARD</strong> downloads a 1200×630 image of your bracket, made for the group chat.
+        </div>
+        <div style="margin-top:12px;font-size:12px;font-weight:600;color:#7A7158;border-top:1px solid #EAE3D0;padding-top:10px;">
+          Everything saves automatically in your browser — close the tab, come back, it's all there.
+        </div>
+      </section>
+    </div>
+
+    <div style="margin-top:24px;background:#15181D;border-radius:14px;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+      <div style="font-size:13px;font-weight:600;color:#A39B85;">48 teams · 12 groups · 104 matches · June 11 → July 19, 2026. Good luck with your picks.</div>
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:#C9A227;color:#15181D;padding:10px 18px;border-radius:10px;font-weight:800;font-size:12px;letter-spacing:1.2px;text-decoration:none;" style-hover="background:#D9B440;">START PREDICTING →</a>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>
