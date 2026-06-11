@@ -38,15 +38,19 @@
         </div>
         <div style="margin-top:9px;font-size:13px;font-weight:600;color:#5C5644;max-width:560px;">Prediction bracket — 48 teams, 12 groups, 104 matches. Score every group game and the knockout draw builds itself.</div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;padding-top:6px;">
+      <div style="display:flex;flex-direction:column;align-items:flex-end;padding-top:6px;max-width:470px;flex-shrink:0;">
         <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
           <sc-if value="{{ isPred }}" hint-placeholder-val="{{ true }}">
             <button onClick="{{ onAutofill }}" style="appearance:none;background:#15181D;color:#F5F2EA;border:2px solid #15181D;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:1.2px;cursor:pointer;display:flex;align-items:center;gap:8px;" style-hover="background:#2C323C;border-color:#2C323C;">
               <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.5 0.5 L1 8 H4.5 L4 13.5 L10 5.5 H6 L6.5 0.5 Z" fill="currentColor"></path></svg>
-              <span>AUTO-FILL REMAINING</span>
+              <span>AUTO-FILL</span>
             </button>
           </sc-if>
           <button onClick="{{ onReset }}" style="appearance:none;background:transparent;color:#15181D;border:2px solid #15181D;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:1.2px;cursor:pointer;" style-hover="background:#EAE4D2;">CLEAR</button>
+          <a href="user-guide.dc.html" title="How everything works" style="display:inline-flex;align-items:center;gap:7px;background:transparent;color:#15181D;border:2px solid #15181D;padding:11px 16px;border-radius:10px;font-weight:800;font-size:12px;letter-spacing:1.2px;text-decoration:none;" style-hover="background:#EAE4D2;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;border:1.8px solid currentColor;font-size:10px;font-weight:800;">?</span>
+            <span>GUIDE</span>
+          </a>
           <sc-if value="{{ shareVisible }}" hint-placeholder-val="{{ false }}">
             <button onClick="{{ onShare }}" style="appearance:none;background:{{ shareBg }};color:{{ shareColor }};border:2px solid #15181D;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:1.2px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background 0.2s ease,color 0.2s ease;animation:fadeUp 0.3s ease both;" style-hover="background:#EAE4D2;">
               <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 1 L6 8.5 M6 1 L3 4 M6 1 L9 4 M1.5 6.5 V11 a1 1 0 0 0 1 1 H9.5 a1 1 0 0 0 1-1 V6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
