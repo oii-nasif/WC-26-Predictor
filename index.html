@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="ext-resource-dependency" content="https://flagcdn.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Archivo:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #F1EDE2; }
+    * { box-sizing: border-box; }
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    @keyframes popIn { from { opacity: 0; transform: translateY(-50%) scale(0.5); } to { opacity: 1; transform: translateY(-50%) scale(1); } }
+    @keyframes champIn { from { opacity: 0; transform: translateY(18px) scale(0.97); } to { opacity: 1; transform: none; } }
+    @keyframes starPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+    @keyframes confettiFall { 0% { transform: translateY(-24px) rotate(0deg); opacity: 1; } 100% { transform: translateY(230px) rotate(540deg); opacity: 0; } }
+  </style>
+</helmet>
+<div style="min-height:100vh;background:#F1EDE2;color:#15181D;font-family:'Archivo',system-ui,sans-serif;">
+  <div style="display:flex;height:6px;">
+    <div style="flex:1;background:#C8402F;"></div>
+    <div style="flex:1;background:#1A7A4A;"></div>
+    <div style="flex:1;background:#1F4FA8;"></div>
+  </div>
+  <header style="background:#F7F4EA;border-bottom:2px solid #15181D;">
+    <div style="max-width:1480px;margin:0 auto;padding:26px 32px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2.4px;color:#7A7158;">CANADA · MEXICO · UNITED STATES — JUN 11 → JUL 19, 2026</div>
+        <div style="display:flex;align-items:baseline;gap:13px;margin-top:7px;">
+          <span style="font-family:'Anton',sans-serif;font-size:52px;line-height:1;letter-spacing:1px;">FIFA WORLD CUP</span>
+          <span style="font-family:'Anton',sans-serif;font-size:52px;line-height:1;background:#C8402F;color:#F7F4EA;padding:3px 11px 0;">26</span>
+        </div>
+        <div style="margin-top:9px;font-size:13px;font-weight:600;color:#5C5644;max-width:560px;">Prediction bracket — 48 teams, 12 groups, 104 matches. Score every group game and the knockout draw builds itself.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;padding-top:6px;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
+          <sc-if value="{{ isPred }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ onAutofill }}" style="appearance:none;background:#15181D;color:#F5F2EA;border:2px solid #15181D;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:1.2px;cursor:pointer;display:flex;align-items:center;gap:8px;" style-hover="background:#2C323C;border-color:#2C323C;">
+              <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.5 0.5 L1 8 H4.5 L4 13.5 L10 5.5 H6 L6.5 0.5 Z" fill="currentColor"></path></svg>
+              <span>AUTO-FILL REMAINING</span>
+            </button>
+          </sc-if>
+          <button onClick="{{ onReset }}" style="appearance:none;background:transparent;color:#15181D;border:2px solid #15181D;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:1.2px;cursor:pointer;" style-hover="background:#EAE4D2;">CLEAR</button>
+          <sc-if value="{{ shareVisible }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ onShare }}" style="appearance:none;background:{{ shareBg }};color:{{ shareColor }};border:2px solid #15181D;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:1.2px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background 0.2s ease,color 0.2s ease;animation:fadeUp 0.3s ease both;" style-hover="background:#EAE4D2;">
+              <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 1 L6 8.5 M6 1 L3 4 M6 1 L9 4 M1.5 6.5 V11 a1 1 0 0 0 1 1 H9.5 a1 1 0 0 0 1-1 V6.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+              <span>{{ shareLabel }}</span>
+            </button>
+            <button onClick="{{ onCard }}" title="Download your prediction as an image" style="appearance:none;background:{{ cardBg }};color:{{ cardColor }};border:2px solid #15181D;padding:11px 18px;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:1.2px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background 0.2s ease,color 0.2s ease;animation:fadeUp 0.3s ease both;" style-hover="background:#EAE4D2;">
+              <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 1 V8.5 M6 8.5 L3 5.5 M6 8.5 L9 5.5 M1.5 9 V11 a1 1 0 0 0 1 1 H9.5 a1 1 0 0 0 1-1 V9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
+              <span>{{ cardLabel }}</span>
+            </button>
+          </sc-if>
+        </div>
+        <div style="margin-top:16px;min-width:320px;">
+          <div style="font-size:11px;font-weight:800;letter-spacing:1.2px;color:#7A7158;text-align:right;">{{ progressLabel }}</div>
+          <div style="margin-top:6px;height:6px;background:#E4DDC9;border-radius:99px;overflow:hidden;">
+            <div style="height:100%;width:{{ progressPct }};background:#1A7A4A;border-radius:99px;transition:width 0.5s cubic-bezier(0.22,1,0.36,1);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1480px;margin:0 auto;padding:20px 32px 0;display:flex;gap:8px;">
+      <button onClick="{{ showGroups }}" style="appearance:none;border:2px solid #15181D;border-bottom:none;background:{{ tabGBg }};color:{{ tabGColor }};font-family:inherit;font-weight:800;font-size:13px;letter-spacing:1.6px;padding:12px 28px 13px;cursor:pointer;border-radius:10px 10px 0 0;">GROUP STAGE</button>
+      <button onClick="{{ showBracket }}" style="appearance:none;border:2px solid #15181D;border-bottom:none;background:{{ tabBBg }};color:{{ tabBColor }};font-family:inherit;font-weight:800;font-size:13px;letter-spacing:1.6px;padding:12px 28px 13px;cursor:pointer;border-radius:10px 10px 0 0;">KNOCKOUT BRACKET</button>
+      <button onClick="{{ showScore }}" style="appearance:none;border:2px solid #15181D;border-bottom:none;background:{{ tabSBg }};color:{{ tabSColor }};font-family:inherit;font-weight:800;font-size:13px;letter-spacing:1.6px;padding:12px 28px 13px;cursor:pointer;border-radius:10px 10px 0 0;">SCORECARD</button>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:10px;padding-bottom:10px;">
+        <span style="font-size:10px;font-weight:800;letter-spacing:1.4px;color:#7A7158;">EDITING</span>
+        <div style="display:flex;border:2px solid #15181D;border-radius:99px;overflow:hidden;">
+          <button onClick="{{ modePred }}" style="appearance:none;border:none;background:{{ mPBg }};color:{{ mPColor }};font-family:inherit;font-weight:800;font-size:10.5px;letter-spacing:1px;padding:8px 14px;cursor:pointer;transition:background 0.2s ease,color 0.2s ease;">MY PREDICTION</button>
+          <button onClick="{{ modeActual }}" style="appearance:none;border:none;background:{{ mABg }};color:{{ mAColor }};font-family:inherit;font-weight:800;font-size:10.5px;letter-spacing:1px;padding:8px 14px;cursor:pointer;transition:background 0.2s ease,color 0.2s ease;">ACTUAL RESULTS</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ isGroups }}" hint-placeholder-val="{{ true }}">
+    <main data-screen-label="Group stage" style="max-width:1480px;margin:0 auto;padding:26px 32px 64px;animation:fadeUp 0.35s ease both;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+        <sc-for list="{{ groups }}" as="g" hint-placeholder-count="12">
+          <section style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px 11px;border-bottom:2px solid #15181D;">
+              <div style="display:flex;align-items:center;gap:9px;">
+                <span style="width:12px;height:12px;background:{{ g.accent }};display:inline-block;"></span>
+                <span style="font-family:'Anton',sans-serif;font-size:21px;letter-spacing:0.6px;">GROUP {{ g.letter }}</span>
+              </div>
+              <span style="font-size:10px;font-weight:800;letter-spacing:1.2px;padding:4px 9px;border-radius:99px;background:{{ g.statusBg }};color:{{ g.statusColor }};">{{ g.statusLabel }}</span>
+            </div>
+            <div style="padding:11px 14px 9px;display:flex;flex-direction:column;gap:6px;">
+              <sc-for list="{{ g.matches }}" as="m" hint-placeholder-count="6">
+                <div onMouseEnter="{{ m.onEnter }}" onMouseLeave="{{ m.onLeave }}" style="display:grid;grid-template-columns:1fr 78px 1fr;align-items:center;gap:8px;position:relative;">
+                  <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end;min-width:0;">
+                    <span style="font-weight:800;font-size:12.5px;letter-spacing:0.4px;">{{ m.hCode }}</span>
+                    <img src="{{ m.hFlag }}" alt="{{ m.hCode }}" style="width:24px;height:17px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(21,24,29,0.15);">
+                  </div>
+                  <div style="display:flex;gap:5px;justify-content:center;">
+                    <button onClick="{{ m.onH }}" title="Tap to add a goal (past 9 clears)" aria-label="home goals" style="width:31px;height:30px;display:flex;align-items:center;justify-content:center;border:{{ m.hB }};border-radius:7px;background:{{ m.hBg }};color:{{ m.hC }};font-family:inherit;font-weight:800;font-size:14px;cursor:pointer;padding:0;line-height:1;transition:border-color 0.15s ease,background 0.15s ease,color 0.15s ease,transform 0.1s ease;" style-hover="border-color:#15181D;background:#FFFFFF;" style-active="transform:scale(0.92);">{{ m.hDisp }}</button>
+                    <button onClick="{{ m.onA }}" title="Tap to add a goal (past 9 clears)" aria-label="away goals" style="width:31px;height:30px;display:flex;align-items:center;justify-content:center;border:{{ m.aB }};border-radius:7px;background:{{ m.aBg }};color:{{ m.aC }};font-family:inherit;font-weight:800;font-size:14px;cursor:pointer;padding:0;line-height:1;transition:border-color 0.15s ease,background 0.15s ease,color 0.15s ease,transform 0.1s ease;" style-hover="border-color:#15181D;background:#FFFFFF;" style-active="transform:scale(0.92);">{{ m.aDisp }}</button>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;justify-content:flex-start;min-width:0;">
+                    <img src="{{ m.aFlag }}" alt="{{ m.aCode }}" style="width:24px;height:17px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(21,24,29,0.15);">
+                    <span style="font-weight:800;font-size:12.5px;letter-spacing:0.4px;">{{ m.aCode }}</span>
+                  </div>
+                  <sc-if value="{{ m.showClear }}" hint-placeholder-val="{{ false }}">
+                    <button onClick="{{ m.onClear }}" title="Reset this match" aria-label="reset match score" style="position:absolute;right:0;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;border:1px solid #C2B99E;background:#F7F4EA;color:#7A7158;font-size:11px;font-weight:800;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;animation:popIn 0.15s ease both;" style-hover="border-color:#C8402F;color:#C8402F;background:#FFFFFF;">×</button>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div style="border-top:1px solid #EAE3D0;padding:9px 14px 13px;">
+              <div style="display:grid;grid-template-columns:20px 1fr 22px 22px 22px 22px 36px 30px;gap:2px;font-size:9.5px;font-weight:800;letter-spacing:1px;color:#9A9178;padding:0 6px 5px;">
+                <span>#</span><span>TEAM</span><span style="text-align:center;">P</span><span style="text-align:center;">W</span><span style="text-align:center;">D</span><span style="text-align:center;">L</span><span style="text-align:center;">GD</span><span style="text-align:center;">PTS</span>
+              </div>
+              <sc-for list="{{ g.table }}" as="r" hint-placeholder-count="4">
+                <div onClick="{{ r.onClick }}" title="View predicted path" style="display:grid;grid-template-columns:20px 1fr 22px 22px 22px 22px 36px 30px;gap:2px;align-items:center;font-size:12px;padding:4px 6px;border-radius:6px;background:{{ r.bg }};transition:background 0.3s ease;cursor:pointer;">
+                  <span style="font-weight:700;color:#9A9178;font-size:11px;">{{ r.pos }}</span>
+                  <span style="display:flex;align-items:center;gap:7px;min-width:0;">
+                    <img src="{{ r.flag }}" alt="" style="width:18px;height:13px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(21,24,29,0.12);">
+                    <span style="font-weight:{{ r.weight }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r.name }}</span>
+                  </span>
+                  <span style="text-align:center;color:#6E6650;">{{ r.p }}</span>
+                  <span style="text-align:center;color:#6E6650;">{{ r.w }}</span>
+                  <span style="text-align:center;color:#6E6650;">{{ r.d }}</span>
+                  <span style="text-align:center;color:#6E6650;">{{ r.l }}</span>
+                  <span style="text-align:center;font-weight:700;">{{ r.gd }}</span>
+                  <span style="text-align:center;font-weight:800;">{{ r.pts }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </sc-for>
+      </div>
+
+      <section style="margin-top:26px;background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:18px 22px 20px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:13px;">
+          <span style="font-family:'Anton',sans-serif;font-size:20px;letter-spacing:0.6px;">BEST THIRD-PLACED TEAMS</span>
+          <span style="font-size:12px;font-weight:600;color:#7A7158;">{{ thirdsNote }}</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+          <sc-for list="{{ thirds }}" as="t" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 13px;border-radius:99px;border:1.5px solid {{ t.border }};background:{{ t.bg }};opacity:{{ t.op }};">
+              <span style="font-weight:800;font-size:11px;color:#8B8470;">{{ t.pos }}</span>
+              <img src="{{ t.flag }}" alt="" style="width:20px;height:14px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(21,24,29,0.12);">
+              <span style="font-weight:800;font-size:12px;letter-spacing:0.4px;">{{ t.code }}</span>
+              <span style="font-size:10px;font-weight:700;color:#8B8470;letter-spacing:0.4px;">{{ t.meta }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isBracket }}" hint-placeholder-val="{{ false }}">
+    <main data-screen-label="Knockout bracket" style="padding:28px 28px 64px;animation:fadeUp 0.35s ease both;">
+      <sc-if value="{{ hasChampion }}" hint-placeholder-val="{{ false }}">
+        <div style="max-width:960px;margin:0 auto 30px;background:#15181D;border-radius:18px;padding:30px 38px;display:flex;align-items:center;gap:28px;box-shadow:0 18px 40px rgba(21,24,29,0.28);position:relative;overflow:hidden;animation:champIn 0.5s cubic-bezier(0.22,1,0.36,1) both;">
+          {{ confetti }}
+          <div style="position:absolute;right:-26px;top:50%;transform:translateY(-50%);font-family:'Anton',sans-serif;font-size:200px;line-height:1;color:#C9A227;opacity:0.1;pointer-events:none;user-select:none;">26</div>
+          <img src="{{ champFlag }}" alt="" style="width:112px;height:78px;object-fit:cover;border-radius:6px;box-shadow:0 0 0 3px #C9A227, 0 10px 24px rgba(0,0,0,0.4);position:relative;">
+          <div style="flex:1;position:relative;">
+            <div style="font-size:12px;font-weight:800;letter-spacing:3px;color:#C9A227;">WORLD CHAMPIONS · JULY 19, 2026 · NEW JERSEY</div>
+            <div style="font-family:'Anton',sans-serif;font-size:58px;line-height:1.02;color:#F5F2EA;margin-top:6px;">{{ champName }}</div>
+            <div style="display:flex;width:124px;height:6px;margin-top:14px;border-radius:99px;overflow:hidden;">
+              <div style="flex:1;background:#C8402F;"></div>
+              <div style="flex:1;background:#1A7A4A;"></div>
+              <div style="flex:1;background:#1F4FA8;"></div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+      <div style="display:flex;justify-content:center;">
+        <div style="width:{{ bw }};height:{{ bh }};">
+          <div style="width:1440px;height:790px;transform:{{ bScale }};transform-origin:top left;">
+            <div style="display:flex;gap:12px;height:790px;">
+          <sc-for list="{{ cols }}" as="col" hint-placeholder-count="9">
+            <div style="flex:1;display:flex;flex-direction:column;min-width:0;">
+              <div style="text-align:center;font-weight:800;font-size:10.5px;letter-spacing:1.6px;color:#8B8470;padding:0 0 10px;">{{ col.title }}</div>
+              <div style="flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:8px;">
+                <sc-for list="{{ col.matches }}" as="km" hint-placeholder-count="2">
+                  <div style="display:flex;flex-direction:column;gap:1px;background:#E1DAC6;border:1px solid #E1DAC6;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(21,24,29,0.06);">
+                    <sc-if value="{{ km.hasHeader }}" hint-placeholder-val="{{ false }}">
+                      <div style="background:{{ km.headerBg }};color:{{ km.headerColor }};font-size:9.5px;font-weight:800;letter-spacing:1.4px;text-align:center;padding:5px 6px;">{{ km.header }}</div>
+                    </sc-if>
+                    <sc-for list="{{ km.slots }}" as="s" hint-placeholder-count="2">
+                      <div onClick="{{ s.onClick }}" style="display:flex;align-items:center;gap:7px;padding:8px 9px;background:{{ s.bg }};color:{{ s.color }};opacity:{{ s.op }};cursor:{{ s.cursor }};min-height:33px;transition:background 0.22s ease,color 0.22s ease,opacity 0.22s ease;">
+                        <sc-if value="{{ s.hasTeam }}" hint-placeholder-val="{{ true }}">
+                          <img src="{{ s.flag }}" alt="" style="width:21px;height:15px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(21,24,29,0.18);">
+                          <span style="font-weight:{{ s.weight }};font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ s.name }}</span>
+                          <span style="margin-left:auto;font-size:11px;font-weight:800;">{{ s.mark }}</span>
+                        </sc-if>
+                        <sc-if value="{{ s.noTeam }}" hint-placeholder-val="{{ false }}">
+                          <span style="font-size:10px;color:#A39B85;font-weight:700;letter-spacing:0.6px;">{{ s.label }}</span>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="max-width:1480px;margin:22px auto 0;text-align:center;font-size:11.5px;font-weight:600;color:#9A9178;">
+        Tap a team to advance it. Group winners, runners-up and the eight best thirds drop in automatically once groups are complete — third-place routing follows the official slot constraints (FIFA's Annex C matrix decides exact pairings in the real tournament).
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isScore }}" hint-placeholder-val="{{ false }}">
+    <main data-screen-label="Scorecard" style="max-width:1060px;margin:0 auto;padding:26px 32px 64px;animation:fadeUp 0.35s ease both;">
+      <sc-if value="{{ scNoActual }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:56px 40px;text-align:center;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+          <div style="font-family:'Anton',sans-serif;font-size:26px;letter-spacing:0.5px;">NO REAL RESULTS YET</div>
+          <div style="margin-top:10px;font-size:13.5px;font-weight:600;color:#7A7158;max-width:470px;margin-left:auto;margin-right:auto;">As the tournament plays out, switch to “Actual results” and enter the real scores — your prediction gets graded automatically, match by match.</div>
+          <button onClick="{{ onGoActual }}" style="margin-top:22px;appearance:none;background:#15181D;color:#F5F2EA;border:2px solid #15181D;padding:11px 20px;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;letter-spacing:1.2px;cursor:pointer;" style-hover="background:#2C323C;">ENTER ACTUAL RESULTS</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ scHasActual }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:16px;align-items:stretch;">
+          <div style="background:#15181D;border-radius:14px;padding:24px 32px;display:flex;flex-direction:column;justify-content:center;min-width:220px;">
+            <div style="font-family:'Anton',sans-serif;font-size:64px;line-height:1;color:#F5F2EA;">{{ scTotal }}</div>
+            <div style="margin-top:8px;font-size:11px;font-weight:800;letter-spacing:2px;color:#C9A227;">TOTAL POINTS</div>
+          </div>
+          <div style="flex:1;background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:20px 26px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;">
+              <span style="font-family:'Anton',sans-serif;font-size:18px;letter-spacing:0.4px;">GROUP STAGE</span>
+              <span style="font-size:12px;font-weight:800;color:#1A7A4A;">+{{ scGPts }} PTS</span>
+            </div>
+            <div style="display:flex;gap:40px;margin-top:14px;">
+              <div>
+                <div style="font-family:'Anton',sans-serif;font-size:34px;line-height:1;">{{ scExact }}</div>
+                <div style="font-size:10px;font-weight:800;letter-spacing:1px;color:#7A7158;margin-top:5px;">EXACT SCORES · 3 PTS</div>
+              </div>
+              <div>
+                <div style="font-family:'Anton',sans-serif;font-size:34px;line-height:1;">{{ scOutcome }}</div>
+                <div style="font-size:10px;font-weight:800;letter-spacing:1px;color:#7A7158;margin-top:5px;">CORRECT OUTCOMES · 1 PT</div>
+              </div>
+              <div>
+                <div style="font-family:'Anton',sans-serif;font-size:34px;line-height:1;">{{ scJudged }}</div>
+                <div style="font-size:10px;font-weight:800;letter-spacing:1px;color:#7A7158;margin-top:5px;">MATCHES GRADED</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px;background:#FFFFFF;border:1px solid #E1DAC6;border-radius:14px;padding:20px 26px 16px;box-shadow:0 1px 2px rgba(21,24,29,0.05);">
+          <div style="font-family:'Anton',sans-serif;font-size:18px;letter-spacing:0.4px;margin-bottom:4px;">KNOCKOUT PROGRESSION</div>
+          <sc-for list="{{ scStages }}" as="stg" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #F0EADA;">
+              <span style="width:232px;flex-shrink:0;font-size:11px;font-weight:800;letter-spacing:1.2px;color:#5C5644;">{{ stg.name }}</span>
+              <span style="flex:1;display:flex;flex-wrap:wrap;gap:6px;">
+                <sc-for list="{{ stg.chips }}" as="ch" hint-placeholder-count="2">
+                  <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:99px;background:#E8F2E9;border:1px solid #1A7A4A;">
+                    <img src="{{ ch.flag }}" alt="" style="width:17px;height:12px;object-fit:cover;border-radius:2px;">
+                    <span style="font-size:10.5px;font-weight:800;">{{ ch.code }}</span>
+                  </span>
+                </sc-for>
+              </span>
+              <span style="font-size:11px;font-weight:700;color:#8B8470;white-space:nowrap;">{{ stg.meta }}</span>
+            </div>
+          </sc-for>
+          <div style="margin-top:14px;font-size:11px;font-weight:600;color:#9A9178;">Scoring — group stage: exact score 3 pts, correct outcome 1 pt. Knockout: each team you correctly put through earns R32 +1 · R16 +2 · QF +4 · SF +8 · Final +16 · Champion +32, regardless of path.</div>
+        </div>
+      </sc-if>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ hasFocus }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeFocus }}" style="position:fixed;inset:0;background:rgba(21,24,29,0.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onClick="{{ stopProp }}" style="background:#F7F4EA;border-radius:18px;max-width:540px;width:100%;max-height:86vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,0.35);animation:champIn 0.3s ease both;">
+        <div style="background:#15181D;border-radius:18px 18px 0 0;padding:22px 26px;display:flex;align-items:center;gap:18px;">
+          <img src="{{ f.flag }}" alt="" style="width:64px;height:45px;object-fit:cover;border-radius:4px;box-shadow:0 0 0 2px rgba(245,242,234,0.25);">
+          <div style="flex:1;min-width:0;">
+            <div style="font-family:'Anton',sans-serif;font-size:30px;line-height:1.05;color:#F5F2EA;">{{ f.name }}</div>
+            <div style="margin-top:4px;font-size:10.5px;font-weight:800;letter-spacing:1.6px;color:#A39B85;">{{ f.sub }}</div>
+          </div>
+          <button onClick="{{ closeFocus }}" aria-label="close" style="appearance:none;background:transparent;border:1.5px solid #4A4F58;color:#A39B85;width:30px;height:30px;border-radius:50%;font-size:14px;font-weight:800;cursor:pointer;line-height:1;flex-shrink:0;" style-hover="border-color:#F5F2EA;color:#F5F2EA;">×</button>
+        </div>
+        <div style="padding:9px 26px;background:{{ f.statusBg }};font-size:11px;font-weight:800;letter-spacing:1.4px;color:{{ f.statusColor }};">{{ f.statusText }}</div>
+        <div style="padding:18px 26px 8px;">
+          <div style="font-size:10px;font-weight:800;letter-spacing:1.6px;color:#9A9178;margin-bottom:9px;">GROUP STAGE</div>
+          <sc-for list="{{ f.matches }}" as="fm" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #EAE3D0;">
+              <img src="{{ fm.oppFlag }}" alt="" style="width:22px;height:15px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(21,24,29,0.12);">
+              <span style="flex:1;font-size:13px;font-weight:700;">vs {{ fm.oppName }}</span>
+              <span style="font-size:13px;font-weight:800;letter-spacing:0.5px;">{{ fm.score }}</span>
+              <sc-if value="{{ fm.hasRes }}" hint-placeholder-val="{{ false }}">
+                <span style="width:20px;height:20px;border-radius:50%;background:{{ fm.resBg }};color:#F5F2EA;font-size:10.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;">{{ fm.res }}</span>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ f.hasRoad }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:12px 26px 24px;">
+            <div style="font-size:10px;font-weight:800;letter-spacing:1.6px;color:#9A9178;margin-bottom:9px;">ROAD TO THE FINAL</div>
+            <sc-for list="{{ f.road }}" as="rd" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #EAE3D0;">
+                <span style="width:108px;flex-shrink:0;font-size:10px;font-weight:800;letter-spacing:1px;color:#5C5644;">{{ rd.stage }}</span>
+                <sc-if value="{{ rd.hasOpp }}" hint-placeholder-val="{{ true }}">
+                  <img src="{{ rd.oppFlag }}" alt="" style="width:22px;height:15px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(21,24,29,0.12);">
+                  <span style="flex:1;font-size:13px;font-weight:700;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">vs {{ rd.oppName }}</span>
+                </sc-if>
+                <sc-if value="{{ rd.noOpp }}" hint-placeholder-val="{{ false }}">
+                  <span style="flex:1;font-size:11px;font-weight:700;color:#A39B85;">vs {{ rd.oppLabel }}</span>
+                </sc-if>
+                <span style="font-size:9.5px;font-weight:800;letter-spacing:0.8px;padding:4px 9px;border-radius:99px;background:{{ rd.vBg }};color:{{ rd.vColor }};white-space:nowrap;">{{ rd.verdict }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ f.noRoad }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:4px 26px 24px;font-size:12px;font-weight:600;color:#9A9178;">No knockout road yet — finish the group stage to project it.</div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { view: 'groups', mode: 'pred', scores: {}, picks: {}, aScores: {}, aPicks: {}, hoverId: null, shared: false, vw: (typeof window !== 'undefined' ? window.innerWidth : 1700) };
+
+  componentDidMount() {
+    try {
+      const d = JSON.parse(localStorage.getItem('wc26-predictor-v1'));
+      if (d && typeof d === 'object') this.setState({ scores: d.scores || {}, picks: d.picks || {}, aScores: d.aScores || {}, aPicks: d.aPicks || {} });
+    } catch (e) {}
+    this._onResize = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+  }
+
+  componentWillUnmount() {
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+  }
+
+  persistAll() {
+    try {
+      const s = this.state;
+      localStorage.setItem('wc26-predictor-v1', JSON.stringify({ scores: s.scores, picks: s.picks, aScores: s.aScores, aPicks: s.aPicks }));
+    } catch (e) {}
+  }
+
+  get DATA() {
+    if (this._data) return this._data;
+    const G = (letter, teams) => ({ letter, teams: teams.map(t => ({ id: t[0], name: t[1], flag: t[2], rank: t[3] })) });
+    this._data = [
+      G('A', [['MEX','Mexico','mx',14],['RSA','South Africa','za',61],['KOR','South Korea','kr',22],['CZE','Czechia','cz',44]]),
+      G('B', [['CAN','Canada','ca',27],['BIH','Bosnia & Herz.','ba',75],['QAT','Qatar','qa',53],['SUI','Switzerland','ch',17]]),
+      G('C', [['BRA','Brazil','br',5],['MAR','Morocco','ma',11],['HAI','Haiti','ht',89],['SCO','Scotland','gb-sct',38]]),
+      G('D', [['USA','United States','us',16],['PAR','Paraguay','py',39],['AUS','Australia','au',26],['TUR','Türkiye','tr',25]]),
+      G('E', [['GER','Germany','de',9],['CUW','Curaçao','cw',82],['CIV',"Côte d'Ivoire",'ci',41],['ECU','Ecuador','ec',23]]),
+      G('F', [['NED','Netherlands','nl',6],['JPN','Japan','jp',18],['SWE','Sweden','se',45],['TUN','Tunisia','tn',43]]),
+      G('G', [['BEL','Belgium','be',8],['EGY','Egypt','eg',32],['IRN','Iran','ir',21],['NZL','New Zealand','nz',86]]),
+      G('H', [['ESP','Spain','es',1],['CPV','Cape Verde','cv',71],['KSA','Saudi Arabia','sa',60],['URU','Uruguay','uy',15]]),
+      G('I', [['FRA','France','fr',3],['SEN','Senegal','sn',19],['IRQ','Iraq','iq',57],['NOR','Norway','no',29]]),
+      G('J', [['ARG','Argentina','ar',2],['ALG','Algeria','dz',36],['AUT','Austria','at',24],['JOR','Jordan','jo',64]]),
+      G('K', [['POR','Portugal','pt',7],['COD','DR Congo','cd',56],['UZB','Uzbekistan','uz',50],['COL','Colombia','co',13]]),
+      G('L', [['ENG','England','gb-eng',4],['CRO','Croatia','hr',10],['GHA','Ghana','gh',73],['PAN','Panama','pa',30]])
+    ];
+    return this._data;
+  }
+
+  PATTERN = [[0,1],[2,3],[0,2],[3,1],[0,3],[1,2]];
+
+  KO = {
+    73:{h:{R:'A'},a:{R:'B'}}, 74:{h:{W:'E'},a:{T:74}}, 75:{h:{W:'F'},a:{R:'C'}}, 76:{h:{W:'C'},a:{R:'F'}},
+    77:{h:{W:'I'},a:{T:77}}, 78:{h:{R:'E'},a:{R:'I'}}, 79:{h:{W:'A'},a:{T:79}}, 80:{h:{W:'L'},a:{T:80}},
+    81:{h:{W:'D'},a:{T:81}}, 82:{h:{W:'G'},a:{T:82}}, 83:{h:{R:'K'},a:{R:'L'}}, 84:{h:{W:'H'},a:{R:'J'}},
+    85:{h:{W:'B'},a:{T:85}}, 86:{h:{W:'J'},a:{R:'H'}}, 87:{h:{W:'K'},a:{T:87}}, 88:{h:{R:'D'},a:{R:'G'}},
+    89:{h:{M:74},a:{M:77}}, 90:{h:{M:73},a:{M:75}}, 91:{h:{M:76},a:{M:78}}, 92:{h:{M:79},a:{M:80}},
+    93:{h:{M:83},a:{M:84}}, 94:{h:{M:81},a:{M:82}}, 95:{h:{M:86},a:{M:88}}, 96:{h:{M:85},a:{M:87}},
+    97:{h:{M:89},a:{M:90}}, 98:{h:{M:93},a:{M:94}}, 99:{h:{M:91},a:{M:92}}, 100:{h:{M:95},a:{M:96}},
+    101:{h:{M:97},a:{M:98}}, 102:{h:{M:99},a:{M:100}}, 103:{h:{L:101},a:{L:102}}, 104:{h:{M:101},a:{M:102}}
+  };
+
+  THIRD_ALLOW = { 74:'ABCDF', 77:'CDFGH', 79:'CEFHI', 80:'EHIJK', 81:'BEFIJ', 82:'AEHIJ', 85:'EFGIJ', 87:'DEIJL' };
+
+  flag(t, w) { return 'https://flagcdn.com/w' + (w || 80) + '/' + t.flag + '.png'; }
+
+  calc(scores) {
+    const tables = {}, done = {}, counts = {};
+    this.DATA.forEach(g => {
+      const rows = g.teams.map((t, i) => ({ team: t, seed: i, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 }));
+      let n = 0;
+      this.PATTERN.forEach((pr, mi) => {
+        const s = scores[g.letter + mi];
+        if (s && s[0] !== '' && s[1] !== '' && s[0] != null && s[1] != null) {
+          n++;
+          const h = +s[0], a = +s[1];
+          const R0 = rows[pr[0]], R1 = rows[pr[1]];
+          R0.p++; R1.p++; R0.gf += h; R0.ga += a; R1.gf += a; R1.ga += h;
+          if (h > a) { R0.w++; R1.l++; R0.pts += 3; }
+          else if (h < a) { R1.w++; R0.l++; R1.pts += 3; }
+          else { R0.d++; R1.d++; R0.pts++; R1.pts++; }
+        }
+      });
+      const sorted = rows.slice().sort((x, y) =>
+        y.pts - x.pts || (y.gf - y.ga) - (x.gf - x.ga) || y.gf - x.gf || x.team.rank - y.team.rank || x.seed - y.seed);
+      tables[g.letter] = sorted; counts[g.letter] = n; done[g.letter] = (n === 6);
+    });
+    return { tables, done, counts };
+  }
+
+  thirds(c) {
+    if (!this.DATA.every(g => c.done[g.letter])) return null;
+    const list = this.DATA.map(g => ({ letter: g.letter, row: c.tables[g.letter][2] }));
+    list.sort((x, y) =>
+      y.row.pts - x.row.pts || (y.row.gf - y.row.ga) - (x.row.gf - x.row.ga) ||
+      y.row.gf - x.row.gf || x.row.team.rank - y.row.team.rank);
+    const q = list.slice(0, 8).map(x => x.letter);
+    const slots = Object.keys(this.THIRD_ALLOW)
+      .map(m => ({ m: +m, allow: this.THIRD_ALLOW[m] }))
+      .sort((a, b) => a.allow.split('').filter(L => q.includes(L)).length - b.allow.split('').filter(L => q.includes(L)).length);
+    const used = {}, assign = {};
+    const rec = i => {
+      if (i === slots.length) return true;
+      for (const L of q) {
+        if (!used[L] && slots[i].allow.includes(L)) {
+          used[L] = 1; assign[slots[i].m] = L;
+          if (rec(i + 1)) return true;
+          used[L] = 0; delete assign[slots[i].m];
+        }
+      }
+      return false;
+    };
+    if (!rec(0)) {
+      const left = q.slice();
+      Object.keys(this.THIRD_ALLOW).forEach(m => { assign[m] = left.shift(); });
+    }
+    return { list, q, assign };
+  }
+
+  resolveTeam(spec, c, th, picks) {
+    if (spec.W) return c.done[spec.W] ? { team: c.tables[spec.W][0].team } : { label: 'WINNER GROUP ' + spec.W };
+    if (spec.R) return c.done[spec.R] ? { team: c.tables[spec.R][1].team } : { label: 'RUNNER-UP GROUP ' + spec.R };
+    if (spec.T) {
+      if (th) return { team: c.tables[th.assign[spec.T]][2].team };
+      return { label: '3RD · ' + this.THIRD_ALLOW[spec.T].split('').join('/') };
+    }
+    if (spec.M) { const t = this.winnerOf(spec.M, c, th, picks); return t ? { team: t } : { label: 'WINNER M' + spec.M }; }
+    if (spec.L) { const t = this.loserOf(spec.L, c, th, picks); return t ? { team: t } : { label: 'LOSER M' + spec.L }; }
+    return { label: '' };
+  }
+
+  winnerOf(id, c, th, picks) {
+    const m = this.KO[id];
+    const h = this.resolveTeam(m.h, c, th, picks), a = this.resolveTeam(m.a, c, th, picks);
+    const p = picks[id];
+    if (h.team && p === h.team.id) return h.team;
+    if (a.team && p === a.team.id) return a.team;
+    return null;
+  }
+
+  loserOf(id, c, th, picks) {
+    const m = this.KO[id];
+    const h = this.resolveTeam(m.h, c, th, picks), a = this.resolveTeam(m.a, c, th, picks);
+    const p = picks[id];
+    if (h.team && a.team && p) {
+      if (p === h.team.id) return a.team;
+      if (p === a.team.id) return h.team;
+    }
+    return null;
+  }
+
+  cycleScore(id, side) {
+    this.setState(st => {
+      const key = st.mode === 'pred' ? 'scores' : 'aScores';
+      const scores = { ...st[key] };
+      const cur = scores[id] ? scores[id].slice() : ['', ''];
+      const v = cur[side];
+      cur[side] = v === '' ? '0' : (+v >= 9 ? '' : String(+v + 1));
+      scores[id] = cur;
+      return { [key]: scores };
+    }, () => this.persistAll());
+  }
+
+  clearScore(id) {
+    this.setState(st => {
+      const key = st.mode === 'pred' ? 'scores' : 'aScores';
+      const scores = { ...st[key] };
+      delete scores[id];
+      return { [key]: scores };
+    }, () => this.persistAll());
+  }
+
+  setPick(id, teamId) {
+    this.setState(st => {
+      const key = st.mode === 'pred' ? 'picks' : 'aPicks';
+      const picks = { ...st[key] };
+      if (picks[id] === teamId) delete picks[id]; else picks[id] = teamId;
+      return { [key]: picks };
+    }, () => this.persistAll());
+  }
+
+  simGoals(r, orank) {
+    const exp = Math.min(3.2, Math.max(0.2, 1.15 + (orank - r) / 40));
+    let p = Math.random(), l = Math.exp(-exp), s = l, k = 0;
+    while (p > s && k < 6) { k++; l = l * exp / k; s += l; }
+    return k;
+  }
+
+  autofill() {
+    const scores = { ...this.state.scores };
+    this.DATA.forEach(g => this.PATTERN.forEach((pr, mi) => {
+      const id = g.letter + mi;
+      const s = scores[id];
+      if (!(s && s[0] !== '' && s[1] !== '')) {
+        const A = g.teams[pr[0]], B = g.teams[pr[1]];
+        scores[id] = [String(this.simGoals(A.rank, B.rank)), String(this.simGoals(B.rank, A.rank))];
+      }
+    }));
+    const c = this.calc(scores), th = this.thirds(c);
+    const picks = { ...this.state.picks };
+    const order = [73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,104,103];
+    order.forEach(id => {
+      const m = this.KO[id];
+      const h = this.resolveTeam(m.h, c, th, picks), a = this.resolveTeam(m.a, c, th, picks);
+      if (h.team && a.team) {
+        const valid = picks[id] === h.team.id || picks[id] === a.team.id;
+        if (!valid) {
+          const fav = h.team.rank <= a.team.rank ? h.team : a.team;
+          const dog = fav === h.team ? a.team : h.team;
+          picks[id] = (Math.random() < 0.82 ? fav : dog).id;
+        }
+      }
+    });
+    this.setState({ scores, picks }, () => this.persistAll());
+  }
+
+  flagEmoji(t) {
+    const special = { 'gb-eng': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'gb-sct': '🏴󠁧󠁢󠁳󠁣󠁴󠁿' };
+    if (special[t.flag]) return special[t.flag];
+    if (t.flag.length !== 2) return '';
+    return String.fromCodePoint(...[...t.flag.toUpperCase()].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65));
+  }
+
+  buildShareText() {
+    const { scores, picks } = this.state;
+    const c = this.calc(scores), th = this.thirds(c);
+    const name = t => this.flagEmoji(t) + ' ' + t.name;
+    const lines = ['My FIFA World Cup 26 Prediction:'];
+    const champ = this.winnerOf(104, c, th, picks);
+    const fm = this.KO[104];
+    const f1 = this.resolveTeam(fm.h, c, th, picks), f2 = this.resolveTeam(fm.a, c, th, picks);
+    if (champ) lines.push('Champion: ' + name(champ).toUpperCase());
+    if (f1.team && f2.team) lines.push('Final: ' + name(f1.team) + ' vs ' + name(f2.team));
+    const semis = [97, 98, 99, 100].map(id => this.winnerOf(id, c, th, picks)).filter(Boolean);
+    if (semis.length === 4) lines.push('Semifinalists: ' + semis.map(name).join(', '));
+    let nDone = 0;
+    this.DATA.forEach(g => { nDone += c.counts[g.letter]; });
+    if (!champ) lines.push('Group matches predicted: ' + nDone + '/72 — still working on it!');
+    return lines.join('\n');
+  }
+
+  async share() {
+    const text = this.buildShareText();
+    let ok = false;
+    if (navigator.share) {
+      try { await navigator.share({ text }); ok = true; } catch (e) {}
+    }
+    if (!ok) {
+      try { await navigator.clipboard.writeText(text); ok = true; } catch (e) {}
+    }
+    if (!ok) {
+      try { window.prompt('Copy your bracket:', text); ok = true; } catch (e) {}
+    }
+    if (ok) {
+      this.setState({ shared: true });
+      clearTimeout(this._shareT);
+      this._shareT = setTimeout(() => this.setState({ shared: false }), 2000);
+    }
+  }
+
+  async saveCard() {
+    try {
+      if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
+      const st = this.state;
+      const c = this.calc(st.scores), th = this.thirds(c);
+      const champ = this.winnerOf(104, c, th, st.picks);
+      if (!champ) return;
+      const fm = this.KO[104];
+      const f1 = this.resolveTeam(fm.h, c, th, st.picks).team;
+      const f2 = this.resolveTeam(fm.a, c, th, st.picks).team;
+      const runnerUp = f1 && f2 ? (f1.id === champ.id ? f2 : f1) : null;
+      const semis = [97, 98, 99, 100].map(id => this.winnerOf(id, c, th, st.picks)).filter(Boolean);
+      const loadImg = src => new Promise(res => {
+        const im = new Image();
+        im.crossOrigin = 'anonymous';
+        im.onload = () => res(im);
+        im.onerror = () => res(null);
+        im.src = src;
+        setTimeout(() => res(null), 4000);
+      });
+      const champFlag = await loadImg('https://flagcdn.com/w320/' + champ.flag + '.png');
+      const draw = withImg => {
+        const cv = document.createElement('canvas');
+        cv.width = 1200; cv.height = 630;
+        const x = cv.getContext('2d');
+        x.fillStyle = '#F1EDE2'; x.fillRect(0, 0, 1200, 630);
+        ['#C8402F', '#1A7A4A', '#1F4FA8'].forEach((col, i) => { x.fillStyle = col; x.fillRect(i * 400, 0, 400, 14); });
+        x.fillStyle = '#15181D'; x.font = '44px Anton, sans-serif';
+        x.fillText('FIFA WORLD CUP', 60, 98);
+        const tw = x.measureText('FIFA WORLD CUP').width;
+        x.fillStyle = '#C8402F'; x.fillRect(60 + tw + 16, 60, 78, 46);
+        x.fillStyle = '#F7F4EA'; x.fillText('26', 60 + tw + 27, 98);
+        x.fillStyle = '#7A7158'; x.font = '800 17px Archivo, sans-serif';
+        x.fillText('MY PREDICTION  —  CANADA · MEXICO · UNITED STATES · SUMMER 2026', 60, 136);
+        x.fillStyle = '#15181D'; x.beginPath(); x.roundRect(60, 168, 1080, 292, 20); x.fill();
+        x.save(); x.globalAlpha = 0.1; x.fillStyle = '#C9A227'; x.font = '300px Anton, sans-serif';
+        x.fillText('26', 930, 442); x.restore();
+        if (withImg && champFlag) {
+          x.save(); x.beginPath(); x.roundRect(112, 238, 230, 155, 8); x.clip();
+          x.drawImage(champFlag, 112, 238, 230, 155); x.restore();
+          x.strokeStyle = '#C9A227'; x.lineWidth = 6;
+          x.beginPath(); x.roundRect(112, 238, 230, 155, 8); x.stroke();
+        } else {
+          x.fillStyle = '#C9A227'; x.font = '88px Anton, sans-serif'; x.fillText(champ.id, 112, 348);
+        }
+        x.fillStyle = '#C9A227'; x.font = '800 20px Archivo, sans-serif';
+        x.fillText('W O R L D   C H A M P I O N S', 392, 276);
+        let size = 92;
+        x.font = size + 'px Anton, sans-serif';
+        while (x.measureText(champ.name.toUpperCase()).width > 640 && size > 40) {
+          size -= 4; x.font = size + 'px Anton, sans-serif';
+        }
+        x.fillStyle = '#F5F2EA'; x.fillText(champ.name.toUpperCase(), 388, 372);
+        ['#C8402F', '#1A7A4A', '#1F4FA8'].forEach((col, i) => { x.fillStyle = col; x.fillRect(392 + i * 48, 398, 48, 8); });
+        x.fillStyle = '#15181D'; x.font = '800 24px Archivo, sans-serif';
+        x.fillText('FINAL — beats ' + (runnerUp ? runnerUp.name : '—'), 60, 514);
+        x.fillStyle = '#7A7158'; x.font = '700 20px Archivo, sans-serif';
+        x.fillText('SEMIFINALISTS — ' + semis.map(t => t.name).join(' · '), 60, 552);
+        x.fillStyle = '#9A9178'; x.font = '800 14px Archivo, sans-serif';
+        x.fillText('48 TEAMS · 104 MATCHES · JUN 11 – JUL 19, 2026', 60, 600);
+        return cv;
+      };
+      let cv = draw(true), url;
+      try { url = cv.toDataURL('image/png'); }
+      catch (e) { cv = draw(false); url = cv.toDataURL('image/png'); }
+      const a = document.createElement('a');
+      a.href = url; a.download = 'my-world-cup-26-prediction.png'; a.click();
+      this.setState({ carded: true });
+      clearTimeout(this._cardT);
+      this._cardT = setTimeout(() => this.setState({ carded: false }), 2000);
+    } catch (e) { console.error(e); }
+  }
+
+  resetAll() {
+    const isP = this.state.mode === 'pred';
+    if (!window.confirm(isP ? 'Clear all predictions?' : 'Clear all actual results?')) return;
+    this.setState(isP ? { scores: {}, picks: {} } : { aScores: {}, aPicks: {} }, () => this.persistAll());
+  }
+
+  teamById(id) {
+    if (!this._byId) {
+      this._byId = {};
+      this.DATA.forEach(g => g.teams.forEach(t => { this._byId[t.id] = t; }));
+    }
+    return this._byId[id];
+  }
+
+  scorecard() {
+    const st = this.state;
+    const cP = this.calc(st.scores), thP = this.thirds(cP);
+    const cA = this.calc(st.aScores), thA = this.thirds(cA);
+    const ok = s => s && s[0] !== '' && s[1] !== '';
+    let exact = 0, outcome = 0, judged = 0;
+    this.DATA.forEach(g => this.PATTERN.forEach((pr, mi) => {
+      const id = g.letter + mi, sp = st.scores[id], sa = st.aScores[id];
+      if (ok(sp) && ok(sa)) {
+        judged++;
+        if (sp[0] === sa[0] && sp[1] === sa[1]) exact++;
+        else if (Math.sign(sp[0] - sp[1]) === Math.sign(sa[0] - sa[1])) outcome++;
+      }
+    }));
+    const setFor = (c, th, picks, ids) => {
+      if (ids === 'R32') {
+        const out = [];
+        this.DATA.forEach(g => {
+          if (c.done[g.letter]) { out.push(c.tables[g.letter][0].team.id, c.tables[g.letter][1].team.id); }
+        });
+        if (th) th.q.forEach(L => out.push(c.tables[L][2].team.id));
+        return out;
+      }
+      return ids.map(i => this.winnerOf(i, c, th, picks)).filter(Boolean).map(t => t.id);
+    };
+    const defs = [
+      { name: 'QUALIFIED FOR ROUND OF 32', ids: 'R32', pts: 1 },
+      { name: 'REACHED ROUND OF 16', ids: [73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88], pts: 2 },
+      { name: 'REACHED QUARTERFINALS', ids: [89,90,91,92,93,94,95,96], pts: 4 },
+      { name: 'REACHED SEMIFINALS', ids: [97,98,99,100], pts: 8 },
+      { name: 'REACHED THE FINAL', ids: [101,102], pts: 16 },
+      { name: 'CHAMPION', ids: [104], pts: 32 }
+    ];
+    const stages = defs.map(d => {
+      const pSet = setFor(cP, thP, st.picks, d.ids);
+      const aSet = setFor(cA, thA, st.aPicks, d.ids);
+      const hits = aSet.filter(id => pSet.includes(id));
+      return {
+        name: d.name, hits: hits.length, known: aSet.length, pts: d.pts,
+        ptsEarned: hits.length * d.pts,
+        chips: hits.map(id => { const t = this.teamById(id); return { flag: this.flag(t, 40), code: t.id }; })
+      };
+    });
+    const gPts = exact * 3 + outcome;
+    const total = gPts + stages.reduce((s, x) => s + x.ptsEarned, 0);
+    const hasActual = Object.keys(st.aScores).length > 0 || Object.keys(st.aPicks).length > 0;
+    return { exact, outcome, judged, gPts, stages, total, hasActual };
+  }
+
+  pathFor(teamId, scores, c, th, picks) {
+    const team = this.teamById(teamId);
+    const g = this.DATA.find(x => x.teams.some(t => t.id === teamId));
+    const letter = g.letter;
+    const rows = c.tables[letter];
+    const pos = rows.findIndex(r => r.team.id === teamId) + 1;
+    const done = c.done[letter];
+    const seed = g.teams.findIndex(t => t.id === teamId);
+    const matches = [];
+    this.PATTERN.forEach((pr, mi) => {
+      if (pr[0] !== seed && pr[1] !== seed) return;
+      const s = scores[letter + mi];
+      const home = pr[0] === seed;
+      const opp = g.teams[home ? pr[1] : pr[0]];
+      const set = s && s[0] !== '' && s[1] !== '';
+      const my = set ? (home ? s[0] : s[1]) : null;
+      const their = set ? (home ? s[1] : s[0]) : null;
+      const res = set ? (+my > +their ? 'W' : +my === +their ? 'D' : 'L') : '';
+      matches.push({
+        oppName: opp.name, oppFlag: this.flag(opp, 40),
+        score: set ? my + ' – ' + their : '— vs —',
+        res, hasRes: set,
+        resBg: res === 'W' ? '#1A7A4A' : res === 'D' ? '#8B8470' : '#C8402F'
+      });
+    });
+    const stageDefs = [
+      ['ROUND OF 32', [73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88]],
+      ['ROUND OF 16', [89,90,91,92,93,94,95,96]],
+      ['QUARTERFINAL', [97,98,99,100]],
+      ['SEMIFINAL', [101,102]],
+      ['FINAL', [104]]
+    ];
+    const road = [];
+    let lastVerdict = null, lastStage = null;
+    for (const [stage, ids] of stageDefs) {
+      let found = null, oppSide = null;
+      for (const id of ids) {
+        const m = this.KO[id];
+        const rh = this.resolveTeam(m.h, c, th, picks), ra = this.resolveTeam(m.a, c, th, picks);
+        if (rh.team && rh.team.id === teamId) { found = id; oppSide = ra; break; }
+        if (ra.team && ra.team.id === teamId) { found = id; oppSide = rh; break; }
+      }
+      if (!found) break;
+      const w = this.winnerOf(found, c, th, picks);
+      let verdict;
+      if (!w) verdict = 'TBD';
+      else if (w.id === teamId) verdict = stage === 'FINAL' ? 'CHAMPION' : 'ADVANCED';
+      else verdict = 'ELIMINATED';
+      road.push({
+        stage,
+        hasOpp: !!oppSide.team,
+        noOpp: !oppSide.team,
+        oppName: oppSide.team ? oppSide.team.name : '',
+        oppFlag: oppSide.team ? this.flag(oppSide.team, 40) : '',
+        oppLabel: oppSide.label || '',
+        verdict: verdict === 'TBD' ? 'PICK PENDING' : verdict,
+        vBg: verdict === 'CHAMPION' ? '#C9A227' : verdict === 'ADVANCED' ? '#E8F2E9' : verdict === 'ELIMINATED' ? '#F7E4E1' : '#EFE9D8',
+        vColor: verdict === 'CHAMPION' ? '#15181D' : verdict === 'ADVANCED' ? '#1A7A4A' : verdict === 'ELIMINATED' ? '#C8402F' : '#7A7158'
+      });
+      lastVerdict = verdict; lastStage = stage;
+      if (verdict === 'ELIMINATED' || verdict === 'TBD') break;
+    }
+    let statusText, statusBg = '#EFE9D8', statusColor = '#5C5644';
+    if (lastVerdict === 'CHAMPION') { statusText = '★ PREDICTED WORLD CHAMPION'; statusBg = '#C9A227'; statusColor = '#15181D'; }
+    else if (lastVerdict === 'ELIMINATED') { statusText = 'PREDICTED EXIT — ' + lastStage; statusBg = '#F7E4E1'; statusColor = '#C8402F'; }
+    else if (lastVerdict === 'TBD') { statusText = 'STILL ALIVE — NEXT PICK PENDING'; }
+    else if (!done) { statusText = 'GROUP ' + letter + ' IN PROGRESS — ' + c.counts[letter] + '/6 MATCHES SET'; }
+    else if (pos === 3 && !th) { statusText = 'FINISHED 3RD — COMPLETE ALL GROUPS TO RANK THIRDS'; }
+    else if (pos >= 3 && th && !th.q.includes(letter)) { statusText = 'GROUP-STAGE EXIT'; statusBg = '#F7E4E1'; statusColor = '#C8402F'; }
+    else if (pos === 4) { statusText = 'GROUP-STAGE EXIT'; statusBg = '#F7E4E1'; statusColor = '#C8402F'; }
+    else { statusText = 'QUALIFIED — COMPLETE ALL GROUPS TO BUILD THE BRACKET'; }
+    const posLabel = ['1ST', '2ND', '3RD', '4TH'][pos - 1] || '';
+    return {
+      name: team.name.toUpperCase(), flag: this.flag(team, 160),
+      sub: 'GROUP ' + letter + ' · PREDICTED ' + posLabel + (done ? '' : ' (SO FAR)'),
+      statusText, statusBg, statusColor,
+      matches, road, hasRoad: road.length > 0, noRoad: road.length === 0
+    };
+  }
+
+  renderVals() {
+    const { view, mode } = this.state;
+    const isPred = mode === 'pred';
+    const scores = isPred ? this.state.scores : this.state.aScores;
+    const picks = isPred ? this.state.picks : this.state.aPicks;
+    const c = this.calc(scores), th = this.thirds(c);
+    const ink = '#15181D', paper = '#F5F2EA';
+    const triColor = L => ['#C8402F', '#1A7A4A', '#1F4FA8'][(L.charCodeAt(0) - 65) % 3];
+
+    const groups = this.DATA.map(g => {
+      const done = c.done[g.letter];
+      const matches = this.PATTERN.map((pr, mi) => {
+        const id = g.letter + mi;
+        const s = scores[id] || ['', ''];
+        const A = g.teams[pr[0]], B = g.teams[pr[1]];
+        const scoreStyle = v => v === ''
+          ? { b: '1.5px dashed #C2B99E', c: '#A39B85', bg: 'transparent' }
+          : { b: '1.5px solid ' + (isPred ? '#15181D' : '#C9A227'), c: '#15181D', bg: '#FFFFFF' };
+        const hS = scoreStyle(s[0]), aS = scoreStyle(s[1]);
+        return {
+          id, hCode: A.id, aCode: B.id, hFlag: this.flag(A), aFlag: this.flag(B),
+          hDisp: s[0] === '' ? '+' : s[0], aDisp: s[1] === '' ? '+' : s[1],
+          hB: hS.b, hC: hS.c, hBg: hS.bg,
+          aB: aS.b, aC: aS.c, aBg: aS.bg,
+          onH: () => this.cycleScore(id, 0),
+          onA: () => this.cycleScore(id, 1),
+          showClear: this.state.hoverId === id && (s[0] !== '' || s[1] !== ''),
+          onClear: () => this.clearScore(id),
+          onEnter: () => this.setState({ hoverId: id }),
+          onLeave: () => this.setState(st => st.hoverId === id ? { hoverId: null } : null)
+        };
+      });
+      const table = c.tables[g.letter].map((r, i) => {
+        let bg = 'transparent';
+        if (done && i < 2) bg = '#E8F2E9';
+        if (done && i === 2 && th && th.q.includes(g.letter)) bg = '#F5ECD5';
+        return {
+          pos: i + 1, name: r.team.name, flag: this.flag(r.team, 40),
+          p: r.p, w: r.w, d: r.d, l: r.l,
+          gd: (r.gf - r.ga > 0 ? '+' : '') + (r.gf - r.ga), pts: r.pts,
+          bg, weight: done && i < 2 ? '800' : '600',
+          onClick: () => this.setState({ focusTeam: r.team.id })
+        };
+      });
+      return {
+        letter: g.letter, accent: triColor(g.letter), matches, table,
+        statusLabel: done ? '✓ COMPLETE' : c.counts[g.letter] + '/6',
+        statusBg: done ? ink : '#EFE9D8', statusColor: done ? paper : '#7A7158'
+      };
+    });
+
+    let thirds, thirdsNote;
+    if (th) {
+      thirds = th.list.map((x, i) => ({
+        pos: i + 1, flag: this.flag(x.row.team, 40), code: x.row.team.id,
+        meta: 'GRP ' + x.letter + ' · ' + x.row.pts + ' PTS · ' + ((x.row.gf - x.row.ga >= 0 ? '+' : '') + (x.row.gf - x.row.ga)),
+        border: i < 8 ? '#1A7A4A' : '#DDD5C0', bg: i < 8 ? '#E8F2E9' : '#FAF7EE', op: i < 8 ? '1' : '0.6'
+      }));
+      thirdsNote = 'Top 8 advance to the round of 32.';
+    } else {
+      thirds = this.DATA.filter(g => c.done[g.letter]).map(g => {
+        const r = c.tables[g.letter][2];
+        return {
+          pos: '–', flag: this.flag(r.team, 40), code: r.team.id,
+          meta: 'GRP ' + g.letter + ' · ' + r.pts + ' PTS',
+          border: '#DDD5C0', bg: '#FAF7EE', op: '0.75'
+        };
+      });
+      thirdsNote = 'Complete all 12 groups to rank the eight best third-placed teams.';
+    }
+
+    let nDone = 0;
+    this.DATA.forEach(g => { nDone += c.counts[g.letter]; });
+
+    const colDefs = [
+      { title: 'ROUND OF 32', ms: [74, 77, 73, 75, 83, 84, 81, 82] },
+      { title: 'ROUND OF 16', ms: [89, 90, 93, 94] },
+      { title: 'QUARTERFINALS', ms: [97, 98] },
+      { title: 'SEMIFINAL', ms: [101] },
+      { title: 'FINAL', ms: [104, 103] },
+      { title: 'SEMIFINAL', ms: [102] },
+      { title: 'QUARTERFINALS', ms: [99, 100] },
+      { title: 'ROUND OF 16', ms: [91, 92, 95, 96] },
+      { title: 'ROUND OF 32', ms: [76, 78, 79, 80, 86, 88, 85, 87] }
+    ];
+
+    const KO_ALL = [73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104];
+    let pickCount = 0;
+    KO_ALL.forEach(id => { if (this.winnerOf(id, c, th, picks)) pickCount++; });
+    let predDone = nDone, predPicks = pickCount;
+    if (!isPred) {
+      const cc = this.calc(this.state.scores), tt = this.thirds(cc);
+      predDone = 0; this.DATA.forEach(g => { predDone += cc.counts[g.letter]; });
+      predPicks = 0; KO_ALL.forEach(id => { if (this.winnerOf(id, cc, tt, this.state.picks)) predPicks++; });
+    }
+    const sc = this.scorecard();
+    const focus = this.state.focusTeam ? this.pathFor(this.state.focusTeam, scores, c, th, picks) : null;
+
+    const mkSlot = (id, side) => {
+      const m = this.KO[id];
+      const spec = side === 0 ? m.h : m.a;
+      const r = this.resolveTeam(spec, c, th, picks);
+      const team = r.team || null;
+      const pickedTeam = this.winnerOf(id, c, th, picks);
+      const isPicked = !!(team && pickedTeam && pickedTeam.id === team.id);
+      const isLoser = !!(team && pickedTeam && pickedTeam.id !== team.id);
+      return {
+        hasTeam: !!team, noTeam: !team,
+        flag: team ? this.flag(team, 40) : '',
+        name: team ? team.name : '',
+        label: r.label || '',
+        bg: isPicked ? ink : '#FFFFFF',
+        color: isPicked ? paper : ink,
+        weight: isPicked ? '800' : '600',
+        mark: isPicked ? '✓' : '',
+        op: isLoser ? '0.45' : '1',
+        cursor: team ? 'pointer' : 'default',
+        onClick: team ? () => this.setPick(id, team.id) : undefined
+      };
+    };
+
+    const cols = colDefs.map(cd => ({
+      title: cd.title,
+      matches: cd.ms.map(id => ({
+        id,
+        hasHeader: id === 104 || id === 103,
+        header: id === 104 ? 'FINAL · JUL 19 · NEW JERSEY' : id === 103 ? 'THIRD-PLACE MATCH' : '',
+        headerBg: id === 104 ? '#C9A227' : '#EFE9D8',
+        headerColor: id === 104 ? ink : '#7A7158',
+        slots: [mkSlot(id, 0), mkSlot(id, 1)]
+      }))
+    }));
+
+    const champion = this.winnerOf(104, c, th, picks);
+
+    let confetti = null;
+    if (champion) {
+      if (!this._confetti) {
+        const palette = ['#C9A227', '#C8402F', '#1A7A4A', '#1F4FA8', '#F5F2EA'];
+        this._confetti = Array.from({ length: 26 }, (_, i) => ({
+          left: (i * 3.8 + Math.random() * 3).toFixed(1) + '%',
+          delay: (Math.random() * 2.4).toFixed(2) + 's',
+          dur: (2.2 + Math.random() * 1.8).toFixed(2) + 's',
+          c: palette[i % 5],
+          w: 5 + Math.round(Math.random() * 3),
+          h: 9 + Math.round(Math.random() * 5)
+        }));
+      }
+      confetti = React.createElement(
+        'div',
+        { style: { position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' } },
+        this._confetti.map((p, i) => React.createElement('span', {
+          key: i,
+          style: {
+            position: 'absolute', top: '-24px', left: p.left,
+            width: p.w + 'px', height: p.h + 'px', background: p.c,
+            opacity: 0.9, borderRadius: '1px',
+            animation: 'confettiFall ' + p.dur + ' linear ' + p.delay + ' infinite'
+          }
+        }))
+      );
+    } else {
+      this._confetti = null;
+    }
+
+    const bs = Math.min(1, (this.state.vw - 64) / 1440);
+
+    return {
+      bScale: 'scale(' + bs.toFixed(4) + ')',
+      bw: Math.round(1440 * bs) + 'px',
+      bh: Math.round(790 * bs) + 'px',
+      isGroups: view === 'groups', isBracket: view === 'bracket',
+      showGroups: () => this.setState({ view: 'groups' }),
+      showBracket: () => this.setState({ view: 'bracket' }),
+      tabGBg: view === 'groups' ? ink : 'transparent',
+      tabGColor: view === 'groups' ? paper : ink,
+      tabBBg: view === 'bracket' ? ink : 'transparent',
+      tabBColor: view === 'bracket' ? paper : ink,
+      isScore: view === 'score',
+      showScore: () => this.setState({ view: 'score' }),
+      tabSBg: view === 'score' ? ink : 'transparent',
+      tabSColor: view === 'score' ? paper : ink,
+      isPred,
+      modePred: () => this.setState({ mode: 'pred' }),
+      modeActual: () => this.setState({ mode: 'actual' }),
+      mPBg: isPred ? ink : 'transparent',
+      mPColor: isPred ? paper : ink,
+      mABg: isPred ? 'transparent' : '#C9A227',
+      mAColor: ink,
+      onGoActual: () => this.setState({ mode: 'actual', view: 'groups' }),
+      scTotal: String(sc.total),
+      scExact: sc.exact, scOutcome: sc.outcome, scJudged: sc.judged,
+      scGPts: sc.gPts,
+      scHasActual: sc.hasActual, scNoActual: !sc.hasActual,
+      scStages: sc.stages.map(s => ({
+        name: s.name,
+        chips: s.chips,
+        meta: s.known ? s.hits + ' / ' + s.known + ' KNOWN · +' + s.ptsEarned + ' PTS' : 'NO RESULTS YET'
+      })),
+      onAutofill: () => this.autofill(),
+      onReset: () => this.resetAll(),
+      onShare: () => this.share(),
+      shareVisible: predDone === 72 && predPicks === 32,
+      shareLabel: this.state.shared ? '✓ COPIED' : 'SHARE',
+      shareBg: this.state.shared ? '#1A7A4A' : 'transparent',
+      shareColor: this.state.shared ? '#F5F2EA' : '#15181D',
+      onCard: () => this.saveCard(),
+      cardLabel: this.state.carded ? '✓ SAVED' : 'CARD',
+      cardBg: this.state.carded ? '#1A7A4A' : 'transparent',
+      cardColor: this.state.carded ? '#F5F2EA' : '#15181D',
+      selectAll: e => e.target.select(),
+      progressLabel: (isPred ? 'PREDICTION — ' : 'ACTUAL — ') + nDone + ' / 72 GROUP MATCHES · ' + pickCount + ' / 32 BRACKET PICKS',
+      progressPct: Math.round((nDone / 72) * 100) + '%',
+      groups, thirds, thirdsNote, cols, confetti,
+      hasFocus: !!focus, f: focus || {},
+      closeFocus: () => this.setState({ focusTeam: null }),
+      stopProp: e => e.stopPropagation(),
+      hasChampion: !!champion,
+      champName: champion ? champion.name.toUpperCase() : '',
+      champFlag: champion ? this.flag(champion, 160) : ''
+    };
+  }
+}
+</script>
+</body>
+</html>
